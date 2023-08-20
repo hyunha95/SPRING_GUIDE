@@ -1,0 +1,9 @@
+storage:
+  location: src/main/resources/static/files
+#  location: /Users/nohyunha/Documents/pem
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB

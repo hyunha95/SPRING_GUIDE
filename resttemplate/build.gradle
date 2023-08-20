@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // RestTemplate
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // WebClient
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // Unable to load io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS.
+    // 위 에러 해결하기 위해서 추가
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

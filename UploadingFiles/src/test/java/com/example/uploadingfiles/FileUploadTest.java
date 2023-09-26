@@ -1,5 +1,6 @@
 package com.example.uploadingfiles;
 
+import com.example.uploadingfiles.storage.StorageFileNotFoundException;
 import com.example.uploadingfiles.storage.StorageService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -54,5 +55,16 @@ public class FileUploadTest {
                 .andExpect(header().string("Location", "/"));
 
         then(this.storageService).should().store(multipartFile);
+    }
+
+//    @SuppressWarnings("unchecked")
+    @Test
+    public void should404WhenMissingFile() throws Exception {
+        // given
+        given(this.storageService.loadAsResource("test.txt"))
+                        .willThrow(StorageFileNotFoundException.class);
+
+        this.mvc.perform(get("/files/test.txt"))
+                .andExpect(status().isNotFound());
     }
 }
